@@ -4,12 +4,11 @@ import os
 import sys
 
 COMMONS_PATH = os.path.join('..', '..', 'pybr', 'ajna', 'commons')
-sys.path.insert(0, COMMONS_PATH)
-
-from sqlalchemy import create_engine
+sys.path.append(COMMONS_PATH)
 
 from ajna_commons.flask.conf import SECRET, SQL_URI
 from ajna_commons.flask.log import logger
+from sqlalchemy import create_engine
 
 
 class Production:  # pragma: no cover

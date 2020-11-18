@@ -1,0 +1,10 @@
+dominate
+flask
+flask-bootstrap
+flask-jwt-extended
+flask-nav
+flask-login
+flask-wtf
+pymongo
+pymysql
+sqlalchemy

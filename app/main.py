@@ -1,12 +1,19 @@
 import os
 import sys
 
-COMMONS_PATH = os.path.join('..', '..', 'pybr', 'ajna', 'commons')
-sys.path.insert(0, COMMONS_PATH)
+from flask import Flask, render_template, url_for
+from flask_bootstrap import Bootstrap
+from flask_login import current_user
+from flask_nav import Nav
+from flask_nav.elements import View, Navbar
+from flask_wtf import CSRFProtect
+from sqlalchemy.orm import scoped_session, sessionmaker
+from werkzeug.utils import redirect
 
-from ajna_commons.flask import api_login, login
+from ajna_commons.flask import login
 from ajna_commons.flask.user import DBUser
-from .config import Production
+from app.config import Production
+
 
 def create_app(config_class=Production):
     """Cria app básica e vincula todos os blueprints e módulos/extensões."""
@@ -22,7 +29,8 @@ def create_app(config_class=Production):
                                              autoflush=False,
                                              bind=config_class.sql))
     app.config['db_session'] = db_session
-    app.register_blueprint(teste_api)
+
+    # app.register_blueprint(lambda)
 
     app.logger.info('Configurando login...')
     login.configure(app)

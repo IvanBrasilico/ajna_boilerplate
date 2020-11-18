@@ -1,14 +1,14 @@
 import logging
+# Caminhos - recomendável ao invés disso usar links na produção
+import sys
 
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from werkzeug.serving import run_simple
 
-from app.config import Staging, COMMONS_PATH
+sys.path.append('.')
+from app.config import Staging
 from app.main import create_app
 
-# Caminhos - recomendável ao invés disso usar links na produção
-import sys
-sys.path.insert(0, COMMONS_PATH)
 from ajna_commons.flask.user import DBUser
 
 app = create_app(Staging)  # pragma: no cover Testing = SQLite
@@ -25,4 +25,4 @@ application = DispatcherMiddleware(app,
 
 if __name__ == '__main__':
     print(app.url_map)  # pragma: no cover
-    run_simple('localhost', 5004, application, use_reloader=True)
+    run_simple('localhost', 5999, application, use_reloader=True, use_debugger=True)
