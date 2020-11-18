@@ -13,6 +13,7 @@ from werkzeug.utils import redirect
 from ajna_commons.flask import login
 from ajna_commons.flask.user import DBUser
 from app.config import Production
+from app.routes.admin import admin_app
 
 
 def create_app(config_class=Production):
@@ -31,12 +32,14 @@ def create_app(config_class=Production):
     app.config['db_session'] = db_session
 
     # app.register_blueprint(lambda)
+    admin_app(app, db_session)
 
     app.logger.info('Configurando login...')
     login.configure(app)
     # DBUser.alchemy_class = Usuario
     # DBUser.dbsession = db_session
     DBUser.dbsession = None
+
 
     app.logger.info('Configurando / e redirects')
 

@@ -4,8 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class AcessoVeiculo(Base):
-    __tablename__ = 'acessosveiculo'
+class Dog(Base):
+    __tablename__ = 'k9_dogs'
     __table_args__ = {'sqlite_autoincrement': True}
     id = Column(BigInteger().with_variant(Integer, 'sqlite'),
                 primary_key=True)
@@ -20,5 +20,5 @@ if __name__ == '__main__':
     from app.config import Staging
 
     engine = Staging.sql
-    # Base.metadata.drop_all(engine, [])
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)

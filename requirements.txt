@@ -1,6 +1,7 @@
 dominate
 flask
 flask-admin
+flask-babelex
 flask-bootstrap
 flask-jwt-extended
 flask-nav
