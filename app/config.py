@@ -29,7 +29,7 @@ class Staging:
 
     TESTING = True
     SECRET = 'fraco'  # nosec
-    sql = create_engine('sqlite://')
+    sql = create_engine('sqlite:///teste.db')
 
 
 class Testing:

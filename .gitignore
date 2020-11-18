@@ -3,3 +3,4 @@
 SECRET
 .idea
 *.log
+*.db
