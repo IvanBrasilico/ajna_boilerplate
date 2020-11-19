@@ -1,0 +1,25 @@
+<div id="list_dogs" class="row col-sm-12">
+&nbsp;   <br>
+    <div class="table">
+        <table class="inlineTable table table-bordered table-hover table-responsive"
+               id="rvf_table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th>Formatura</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for dog in dogs %}
+            <tr>
+                <td><a href="dog?id={{ dog.id }}">{{ dog.id }}</a></td>
+                <td>{{ dog.id }}</td>
+                <td>{{ dog.nome }}</td>
+                <td>{{ dog.formatura }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

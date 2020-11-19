@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block content %} {{super()}}
+<div id="main" class="container-fluid">
+    <div id="top" class="row col-sm-12">
+        <div class="form-group">
+            <form method="POST" id="filtrodog" action="pesquisa_dog">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="nonme">Nome</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="datainicio">Início e fim de período de pesquisa para formatura</label>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            {{ oform.nome(class='form-control') }}
+                        </div>
+                        <div class="col-sm-2">
+                            {{ oform.datainicio(class='form-control') }}
+                        </div>
+                        <div class="col-sm-2">
+                            {{ oform.datafim(class='form-control') }}
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-sm-12">
+                    &nbsp;<br>
+                    <div class="col-sm-2">
+                        <button class="btn btn-default btn-info form-control" onclick="submit">
+                            Pesquisar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Dogs</h2>
+    </div>
+    {% include 'divdogs.html' %}
+    <div class="row">
+        &nbsp;<br>
+    </div>
+    <div id="bottom" class="row col-sm-12">
+        AJNA - Receita Federal do Brasil 2017
+    </div>
+</div>
+{% endblock %} {% block scripts %} {{super()}}
+{% endblock %}

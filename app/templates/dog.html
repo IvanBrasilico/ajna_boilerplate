@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block content %} {{super()}}
+<div id="main" class="container-fluid">
+    <form method="POST" id="form_dog" action="dog">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="hidden" name="id" value="{{ oform.id.data }}"/>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label for="id">ID</label>
+                    <div class="form-control">
+                        <span>{{ oform.id.data }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <label for="nome">Nome</label>
+                    {{ oform.nome(class='form-control')}}
+                </div>
+                <div class="col-sm-2">
+                    <label for="formatura">Data de Formatura</label>
+                    <span id="btn_roteiro" data-toggle="modal" data-target="#roteiro">(?)</span>
+                    {{ oform.formatura(class='form-control')}}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row col-sm-12">
+    &nbsp;<br>
+</div>
+{% endblock %} {% block scripts %} {{super()}}
+ {% endblock %}

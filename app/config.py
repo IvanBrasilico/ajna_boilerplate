@@ -3,7 +3,7 @@
 import os
 import sys
 
-COMMONS_PATH = os.path.join('..', '..', 'pybr', 'ajna', 'commons')
+COMMONS_PATH = os.path.join('..', 'ajna_docs', 'commons')
 sys.path.append(COMMONS_PATH)
 
 from ajna_commons.flask.conf import SECRET, SQL_URI

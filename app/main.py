@@ -1,6 +1,5 @@
-import os
-import sys
-
+from ajna_commons.flask import login
+from ajna_commons.flask.user import DBUser
 from flask import Flask, render_template, url_for
 from flask_bootstrap import Bootstrap
 from flask_login import current_user
@@ -10,10 +9,9 @@ from flask_wtf import CSRFProtect
 from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.utils import redirect
 
-from ajna_commons.flask import login
-from ajna_commons.flask.user import DBUser
 from app.config import Production
 from app.routes.admin import admin_app
+from app.routes.k9 import k9views
 
 
 def create_app(config_class=Production):
@@ -31,7 +29,7 @@ def create_app(config_class=Production):
                                              bind=config_class.sql))
     app.config['db_session'] = db_session
 
-    # app.register_blueprint(lambda)
+    app.register_blueprint(k9views)
     admin_app(app, db_session)
 
     app.logger.info('Configurando login...')
@@ -40,13 +38,14 @@ def create_app(config_class=Production):
     # DBUser.dbsession = db_session
     DBUser.dbsession = None
 
-
     app.logger.info('Configurando / e redirects')
 
     @nav.navigation()
     def mynavbar():
         """Menu da aplicação."""
-        items = [View('Home', 'index')]
+        items = [View('Home', 'index'),
+                 View('Dog', 'k9views.dog_id'),
+                 View('Pesquisa Dog', 'k9views.pesquisa_dog')]
         if current_user.is_authenticated:
             items.append(View('Sair', 'commons.logout'))
         return Navbar('teste', *items)
