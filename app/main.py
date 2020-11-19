@@ -10,6 +10,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.utils import redirect
 
 from app.config import Production
+from app.model.k9 import Usuario
 from app.routes.admin import admin_app
 from app.routes.k9 import k9views
 
@@ -36,7 +37,6 @@ def create_app(config_class=Production):
     login.configure(app)
     # DBUser.alchemy_class = Usuario
     # DBUser.dbsession = db_session
-    DBUser.dbsession = None
 
     app.logger.info('Configurando / e redirects')
 

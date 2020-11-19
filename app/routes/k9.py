@@ -1,5 +1,5 @@
 from ajna_commons.flask.log import logger
-from flask import Blueprint, current_app, flash, render_template, request
+from flask import Blueprint, current_app, flash, render_template, request, jsonify
 from flask_login import login_required, current_user
 
 from app.forms.k9_forms import DogForm, DogFiltroForm
@@ -8,6 +8,7 @@ from app.model.k9 import Dog
 k9views = Blueprint('k9views', __name__)
 
 NAOGOSTADECACHORRO = ['ogro', 'shrek']
+
 
 @k9views.route('/dog', methods=['GET', 'POST'])
 @login_required
@@ -63,3 +64,23 @@ def pesquisa_dog():
         logger.error(err, exc_info=True)
         flash(str(err))
     return render_template('pesquisa_dog.html', oform=oform, dogs=dogs)
+
+
+@k9views.route('/api/pesquisa_dog', methods=['POST'])
+def pesquisa_dog_api():
+    session = current_app.config['db_session']
+    dogs_dump = []
+    status_code = 200
+    try:
+        print(request.json)
+        oform = DogFiltroForm(**request.json)
+        dogs = session.query(Dog).filter(
+            Dog.nome.ilike(oform.nome.data + '%')).all()
+        if len(dogs) == 0:
+            status_code = 404
+        dogs_dump = [dog.dump() for dog in dogs]
+        print(dogs_dump)
+    except Exception as err:
+        logger.error(err, exc_info=True)
+        return jsonify({'dogs': dogs_dump, 'error': str(err)}), 500
+    return jsonify({'dogs': dogs_dump}), status_code
