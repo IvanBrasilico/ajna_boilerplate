@@ -21,7 +21,6 @@ def create_app(config_class=Production):
     app.logger.info('Criando app')
     Bootstrap(app)
     nav = Nav(app)
-    csrf = CSRFProtect(app)
     app.secret_key = config_class.SECRET
     app.config['SECRET_KEY'] = config_class.SECRET
     app.config['sql'] = config_class.sql
