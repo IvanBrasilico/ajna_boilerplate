@@ -1,5 +1,4 @@
 from ajna_commons.flask import login
-from ajna_commons.flask.user import DBUser
 from flask import Flask, render_template, url_for
 from flask_bootstrap import Bootstrap
 from flask_login import current_user
@@ -10,9 +9,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.utils import redirect
 
 from app.config import Production
-from app.model.k9 import Usuario
 from app.routes.admin import admin_app
 from app.routes.k9 import k9views
+from app.routes.k9api import k9api
 
 
 def create_app(config_class=Production):
@@ -21,6 +20,7 @@ def create_app(config_class=Production):
     app.logger.info('Criando app')
     Bootstrap(app)
     nav = Nav(app)
+    csrf = CSRFProtect(app)
     app.secret_key = config_class.SECRET
     app.config['SECRET_KEY'] = config_class.SECRET
     app.config['sql'] = config_class.sql
@@ -30,6 +30,8 @@ def create_app(config_class=Production):
     app.config['db_session'] = db_session
 
     app.register_blueprint(k9views)
+    app.register_blueprint(k9api)
+    csrf.exempt(k9api)
     admin_app(app, db_session)
 
     app.logger.info('Configurando login...')
