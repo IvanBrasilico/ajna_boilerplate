@@ -1,4 +1,5 @@
 from ajna_commons.flask import login
+from ajna_commons.flask.user import DBUser
 from flask import Flask, render_template, url_for
 from flask_bootstrap import Bootstrap
 from flask_login import current_user
@@ -36,8 +37,8 @@ def create_app(config_class=Production):
 
     app.logger.info('Configurando login...')
     login.configure(app)
-    # DBUser.alchemy_class = Usuario
-    # DBUser.dbsession = db_session
+    DBUser.alchemy_class = config_class.alchemy_class
+    DBUser.dbsession = db_session
 
     app.logger.info('Configurando / e redirects')
 

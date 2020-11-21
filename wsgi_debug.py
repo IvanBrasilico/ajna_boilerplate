@@ -9,10 +9,8 @@ sys.path.append('.')
 from app.config import Staging
 from app.main import create_app
 
-from ajna_commons.flask.user import DBUser
-
 app = create_app(Staging)  # pragma: no cover Testing = SQLite
-DBUser.dbsession = None  # Aceita autenticação fake (qqer username==password)
+# DBUser.dbsession = None  # Aceita autenticação fake (qqer username==password)
 
 # Configura logs e proxy redirect
 gunicorn_logger = logging.getLogger('gunicorn.debug')

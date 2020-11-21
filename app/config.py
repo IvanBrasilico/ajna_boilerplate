@@ -3,6 +3,8 @@
 import os
 import sys
 
+from app.model.k9 import Usuario
+
 COMMONS_PATH = os.path.join('..', 'ajna', 'commons')
 sys.path.append(COMMONS_PATH)
 
@@ -16,6 +18,7 @@ class Production:  # pragma: no cover
 
     TESTING = False
     SECRET = SECRET
+    alchemy_class = Usuario
     try:
         sql = create_engine(SQL_URI,
                             pool_size=5, max_overflow=5, pool_recycle=3600)
@@ -30,6 +33,7 @@ class Staging:
     TESTING = True
     SECRET = 'fraco'  # nosec
     sql = create_engine('sqlite:///teste.db')
+    alchemy_class = Usuario
 
 
 class Testing:
@@ -38,3 +42,4 @@ class Testing:
     TESTING = True
     SECRET = 'fraco'  # nosec
     sql = create_engine('sqlite:///:memory:')
+    alchemy_class = Usuario
